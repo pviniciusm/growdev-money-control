@@ -5,26 +5,32 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
 import useStyles from './styles';
-
+import { useSelector } from 'react-redux';
 
 export default function Header() {
   const classes = useStyles();
+
+  const saldo = useSelector((store) => store.in);
+  const saldoPositivo = saldo
+    .map((item) => item.value)
+    .reduce((previus, current) => Number(previus) + Number(current), 0);
 
   return (
     <div className={classes.root}>
       <AppBar position="static" color="secondary">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+          >
             LOGO
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             Controle de dinheiro
           </Typography>
-          <Typography variant="h6">
-            Saldo atual R$
-            {' '}
-            0,00
-          </Typography>
+          <Typography variant="h6">Saldo atual R$ {saldoPositivo}</Typography>
         </Toolbar>
       </AppBar>
     </div>

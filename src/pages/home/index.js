@@ -4,11 +4,13 @@ import { useHistory } from 'react-router-dom';
 import { Grid, Fab } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import DataTable from '../../components/data-table';
+import { useSelector } from 'react-redux';
 
 export default function Home() {
   const history = useHistory();
-  const [incomeInLocal, setIncomeInLocal] = useState([]);
+  // const [incomeInLocal, setIncomeInLocal] = useState([]);
   const [incomeOutLocal, setIncomeOutLocal] = useState([]);
+  const incomeInLocal = useSelector((store) => store.in);
 
   const handleClick = () => {
     history.push('/register');
