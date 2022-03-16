@@ -4,3 +4,10 @@ export const addIn = (payload) => {
     payload,
   };
 };
+
+export const updateIn = (payload) => {
+  return {
+    type: 'in/UPDATE',
+    payload,
+  };
+};

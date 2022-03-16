@@ -10,10 +10,18 @@ import { useSelector } from 'react-redux';
 export default function Header() {
   const classes = useStyles();
 
-  const saldo = useSelector((store) => store.in);
-  const saldoPositivo = saldo
+  const saldoIn = useSelector((store) => store.in);
+  const saldoOut = useSelector((store) => store.out);
+
+  const saldoPositivo = saldoIn
     .map((item) => item.value)
     .reduce((previus, current) => Number(previus) + Number(current), 0);
+
+  const saldoNegativo = saldoOut
+    .map((item) => item.value)
+    .reduce((previus, current) => Number(previus) + Number(current), 0);
+
+  const saldo = saldoPositivo - saldoNegativo;
 
   return (
     <div className={classes.root}>
@@ -30,7 +38,7 @@ export default function Header() {
           <Typography variant="h6" className={classes.title}>
             Controle de dinheiro
           </Typography>
-          <Typography variant="h6">Saldo atual R$ {saldoPositivo}</Typography>
+          <Typography variant="h6">Saldo atual R$ {saldo}</Typography>
         </Toolbar>
       </AppBar>
     </div>

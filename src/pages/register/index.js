@@ -21,8 +21,9 @@ import { ArrowBack } from '@material-ui/icons';
 
 import Alert from '../../components/alert';
 import useStyles from './styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addIn } from '../../store/modules/entradas/actions';
+import { addOut } from '../../store/modules/saidas/actions';
 import { useHistory } from 'react-router-dom';
 
 export default function Register() {
@@ -32,7 +33,9 @@ export default function Register() {
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
 
-  const handleChangeSelect = (event) => {};
+  const beer = useSelector((state) => state.beer);
+
+  const handleChangeSelect = (e) => setType(e.target.value);
 
   const handleChangeInput = (event, input) => {
     switch (input) {
@@ -55,7 +58,10 @@ export default function Register() {
   const history = useHistory();
 
   const handleSubmit = () => {
-    dispatch(addIn({ value, description, data: new Date() }));
+    type === 1
+      ? dispatch(addIn({ value, description, data: new Date() }))
+      : dispatch(addOut({ value, description, data: new Date() }));
+
     history.push('/');
     history.goBack();
   };
@@ -64,7 +70,7 @@ export default function Register() {
     <Grid item>
       <Toolbar>
         <Link to="/">
-          <IconButton aria-label="back" component="span">
+          <IconButton aria-label="back" component="span" type={type}>
             <ArrowBack />
           </IconButton>
         </Link>
@@ -78,6 +84,9 @@ export default function Register() {
           <Typography variant="h4" align="center">
             Cadastrar um lançamento
           </Typography>
+          <p>
+            Cerveja {beer.brand} - nome {beer.name} - Page Register
+          </p>
         </Grid>
         <Grid item xs={12} md={6}>
           <Card>
