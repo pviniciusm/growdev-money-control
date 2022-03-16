@@ -2,7 +2,7 @@ import { getBeer } from '../../../services/beer';
 import { addIn } from '../entradas/actions';
 
 export const fetchBeer = () => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
     getBeer().then((data) => {
       console.log(data);
       dispatch(addIn({ value: 10, description: 'teste' }));
